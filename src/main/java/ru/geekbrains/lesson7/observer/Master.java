@@ -1,22 +1,19 @@
 package ru.geekbrains.lesson7.observer;
 
-public class Master implements Observer {
-    private  String name;
-    private double salary;
+public class Master extends Employee implements Observer {
 
     public Master(String name) {
-        this.name = name;
-        salary = 80000;
+        super(name, 8000);
     }
 
     @Override
-    public void receiveOffer(String companyName, double salary) {
-        if (this.salary < salary){
-            System.out.printf("Мастер %s >>> Мне нужна эта работа! [%s - %f]\n", name, companyName, salary);
-            this.salary = salary;
+    public void receiveOffer(String companyName, Vacancy vacancy) {
+        if (this.salary < vacancy.getSalary() && vacancy.getLevel().equals(Level.MASTER)){
+            System.out.printf("Мастер %s >>> Мне нужна эта работа! [%s - Позиция:%s c зарплатой %f]\n", name, companyName,vacancy.level.toString(), vacancy.getSalary());
+            this.salary = vacancy.getSalary();
         }
         else {
-            System.out.printf("Мастер %s >>> Я найду работу получше! [%s - %f]\n", name, companyName, salary);
+            System.out.printf("Мастер %s >>> Я найду работу получше! [%s - Позиция:%s c зарплатой %f]\n", name, companyName,vacancy.level.toString(), vacancy.getSalary());
         }
     }
 }

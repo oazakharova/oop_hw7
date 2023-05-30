@@ -8,6 +8,8 @@ public class Company {
     private String nameCompany;
     private double maxSalary;
 
+
+
     private Publisher jobAgency;
 
     public Company(String nameCompany, double maxSalary, Publisher jobAgency) {
@@ -22,9 +24,14 @@ public class Company {
      *  объект в агенство.
      * Поиск сотрудника
      */
+    private Vacancy generateVacancy(double salary, Level level) {
+        return new Vacancy(salary, level);
+    }
+
     public void needEmployee(){
         double salary = random.nextDouble(3000, maxSalary);
-        jobAgency.sendOffer(nameCompany, salary);
+        int levelIndex = random.nextInt(0, Level.values().length);
+        jobAgency.sendOffer(nameCompany, generateVacancy(salary, Level.values()[levelIndex]));
     }
 
 }
